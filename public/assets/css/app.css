@@ -1,0 +1,101 @@
+:root {
+    --bs-primary: #2167a5;
+    --bs-primary-rgb: 33, 103, 165;
+    --bs-dark: #16344d;
+    --bs-dark-rgb: 22, 52, 77;
+    --bs-body-bg: #f6f8fb;
+    --bs-body-color: #203548;
+    --school-muted: #6b7b89;
+    --school-line: #e5ebf1;
+    --school-blue-soft: #e9f2fb;
+    --school-orange: #a96813;
+    --school-orange-soft: #fff3e1;
+}
+
+body { background: var(--bs-body-bg); }
+.navbar { min-height: 54px; }
+.navbar-brand { font-size: 15px; font-weight: 700; }
+.navbar .nav-link { font-size: 13px; }
+.school-meta { color: #64788a; font-size: 12px; }
+.school-heading { color: #1b344a; font-size: 25px; font-weight: 700; }
+.school-card { border: 1px solid var(--school-line); border-radius: 9px; background: #fff; }
+.school-metric-value { color: #1d3448; font-size: 26px; font-weight: 700; line-height: 1; }
+.school-metric-label { color: var(--school-muted); font-size: 11px; }
+.school-metric-note { color: var(--school-muted); font-size: 10px; }
+.school-year-banner { border: 1px solid #dceafa; border-radius: 9px; background: var(--school-blue-soft); color: #1f5d91; }
+.school-priority { border: 1px solid var(--school-line); border-radius: 9px; background: #fff; }
+.school-status-pending { color: var(--school-orange); background: var(--school-orange-soft); }
+.school-status-paid { color: #24744d; background: #e6f4eb; }
+.school-table { --bs-table-bg: transparent; font-size: 12px; }
+.school-table > :not(caption) > * > * { padding: .65rem .6rem; border-bottom-color: var(--school-line); }
+.login-card { max-width: 430px; border: 1px solid var(--school-line); border-radius: 10px; }
+.login-photo { width: 100%; aspect-ratio: 2.2 / 1; border-radius: 8px; object-fit: cover; }
+.login-brand { color: #1d3448; font-size: 18px; font-weight: 700; }
+.login-kicker { color: var(--school-muted); font-size: 9px; }
+.form-label { color: #34495c; font-size: 12px; font-weight: 600; }
+.form-control { min-height: 42px; border-color: #dce3e9; font-size: 13px; }
+.form-control:focus { border-color: #75a9d6; box-shadow: 0 0 0 .2rem rgb(var(--bs-primary-rgb) / 15%); }
+.btn { font-size: 12px; font-weight: 600; }
+
+@media (min-width: 1200px) {
+    .dashboard-content { max-width: 1240px; }
+}
+
+.legacy-page { max-width: 1240px; }
+.legacy-page > h1 { margin-bottom: 1.25rem; color: #1b344a; font-size: 1.5rem; font-weight: 700; }
+.legacy-page > h2 { margin-top: 1.5rem; color: #1b344a; font-size: 1.1rem; font-weight: 700; }
+.legacy-page > p { color: #64788a; }
+.legacy-page > ul { margin: 0; padding: 0; list-style: none; }
+.legacy-page > ul > li { display: flex; min-height: 48px; align-items: center; justify-content: space-between; gap: .75rem; padding: .65rem .85rem; border-bottom: 1px solid var(--school-line); background: #fff; font-size: .875rem; }
+.legacy-page > ul > li:first-child { border-radius: 8px 8px 0 0; }
+.legacy-page > ul > li:last-child { border-bottom: 0; border-radius: 0 0 8px 8px; }
+.legacy-page form:not(.navbar form) { max-width: 720px; }
+.legacy-page form > p { margin-bottom: 1rem; }
+.legacy-page form label { display: inline-block; margin-bottom: .35rem; color: #34495c; font-size: .8rem; font-weight: 600; }
+.legacy-page form input:not([type="hidden"]), .legacy-page form select, .legacy-page form textarea { display: block; width: 100%; min-height: 40px; padding: .5rem .7rem; border: 1px solid #dce3e9; border-radius: 6px; background: #fff; font: inherit; font-size: .85rem; }
+.legacy-page form textarea { min-height: 88px; }
+.legacy-page form button { min-height: 38px; padding: .5rem .9rem; border: 1px solid var(--bs-primary); border-radius: 6px; color: #fff; background: var(--bs-primary); font-size: .8rem; font-weight: 600; }
+.legacy-page > a { color: var(--bs-primary); font-size: .85rem; }
+.legacy-page table { width: 100%; border-collapse: collapse; background: #fff; font-size: .85rem; }
+.legacy-page th, .legacy-page td { padding: .65rem .75rem; border-bottom: 1px solid var(--school-line); text-align: left; }
+
+.public-home { color: #203548; background: #fff; }
+.public-home .navbar-brand { color: #2167a5; }
+.public-hero { position: relative; display: flex; min-height: min(720px, calc(100svh - 56px)); align-items: center; overflow: hidden; color: #fff; background: #16344d; }
+.public-hero-image, .public-hero-shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+.public-hero-image { object-fit: cover; object-position: center 42%; }
+.public-hero-shade { background: rgb(13 37 58 / 54%); }
+.public-hero-content { position: relative; z-index: 1; padding-top: 4rem; padding-bottom: 5rem; }
+.public-hero-copy { max-width: 650px; }
+.public-hero h1 { font-size: clamp(2.6rem, 8vw, 5rem); }
+.public-hero .lead { max-width: 570px; font-size: clamp(1rem, 2.4vw, 1.25rem); }
+.public-scroll-cue { position: absolute; z-index: 1; right: 50%; bottom: 1.5rem; display: grid; width: 38px; height: 38px; place-items: center; border: 1px solid rgb(255 255 255 / 55%); border-radius: 50%; color: #fff; text-decoration: none; transform: translateX(50%); }
+.public-programs { background: #f6f8fb; }
+.public-program { border: 1px solid var(--school-line); border-radius: 8px; background: #fff; }
+.public-program-number { color: #2167a5; font-size: .75rem; font-weight: 700; }
+.public-contact { border-radius: 9px; color: #fff; background: #163f62; }
+.public-contact .btn { color: #194f7c; }
+.public-home .navbar { min-height: 68px; }
+.public-home .navbar-brand { font-size: 1.05rem; letter-spacing: -.02em; }
+.public-home .nav-link { font-size: .9rem; }
+.public-hero { min-height: min(740px, calc(100svh - 68px)); }
+.public-hero-shade { background: linear-gradient(90deg, rgb(9 33 53 / 82%) 0%, rgb(9 33 53 / 60%) 48%, rgb(9 33 53 / 16%) 100%); }
+.public-hero h1 { max-width: 700px; letter-spacing: -.04em; line-height: 1.03; }
+.public-hero .text-uppercase { letter-spacing: .16em; }
+.public-hero .btn { border-radius: 999px; padding: .85rem 1.35rem; }
+.public-home .py-lg-6 { padding-top: 5.5rem !important; padding-bottom: 5.5rem !important; }
+.public-program { border-radius: 16px; padding: 1.75rem !important; transition: transform .2s ease, box-shadow .2s ease; }
+.public-program:hover { transform: translateY(-4px); box-shadow: 0 1rem 2.5rem rgb(22 52 77 / 9%); }
+.public-program-number { display: inline-grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: #e9f2fb; }
+.public-contact { border-radius: 20px; background: linear-gradient(115deg, #163f62, #2167a5); }
+.public-home footer { background: #fbfcfe; }
+.student-enrollment-page { min-height: 100vh; background: linear-gradient(135deg, #f1f7fc, #fff 65%); }
+.student-enrollment-card { max-width: 720px; border: 1px solid var(--school-line); border-radius: 20px; background: #fff; box-shadow: 0 1.5rem 4rem rgb(22 52 77 / 8%); }
+.student-enrollment-icon { display: grid; width: 48px; height: 48px; place-items: center; border-radius: 14px; color: #2167a5; background: #e9f2fb; font-size: 1.25rem; }
+.student-enrollment-fee { border: 1px solid #dceafa; border-radius: 12px; background: #f5f9fd; }
+.student-enrollment-fee strong { display: block; margin: .1rem 0; color: #163f62; font-size: 1.4rem; }
+.student-enrollment-page .form-select { min-height: 48px; border-color: #dce3e9; }
+.student-enrollment-page .btn { border-radius: 9px; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { .public-program { transition: none; } .public-program:hover { transform: none; } }

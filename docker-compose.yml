@@ -13,6 +13,7 @@ services:
     build: ./docker/php
     volumes:
       - .:/var/www/html
+      - student_photos:/var/www/html/storage/student-photos
 
   db:
     image: postgres:16
@@ -20,7 +21,8 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     ports:
-      - "127.0.0.1:5432:5432"
+      - "127.0.0.1:15432:5432"
 
 volumes:
   db_data:
+  student_photos:

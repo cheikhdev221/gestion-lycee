@@ -1,0 +1,194 @@
+classDiagram
+    direction LR
+
+    class roles {
+        id : SMALLINT PK
+        code : VARCHAR(30) UQ
+        libelle : VARCHAR(100) UQ
+        description : TEXT nullable
+        created_at : TIMESTAMPTZ
+    }
+    class utilisateurs {
+        id : INTEGER PK
+        role_id : SMALLINT FK
+        nom : VARCHAR(100)
+        prenom : VARCHAR(100)
+        email : VARCHAR(255) UQ
+        password_hash : VARCHAR(255)
+        actif : BOOLEAN
+        created_at : TIMESTAMPTZ
+        updated_at : TIMESTAMPTZ
+    }
+    class annees_scolaires {
+        id : SMALLINT PK
+        libelle : VARCHAR(20) UQ
+        date_debut : DATE
+        date_fin : DATE
+        statut : VARCHAR(15)
+        created_at : TIMESTAMPTZ
+    }
+    class niveaux {
+        id : SMALLINT PK
+        code : VARCHAR(20) UQ
+        libelle : VARCHAR(100) UQ
+        ordre : SMALLINT
+    }
+    class series {
+        id : SMALLINT PK
+        code : VARCHAR(20) UQ
+        libelle : VARCHAR(100) UQ
+    }
+    class series_niveaux {
+        id : INTEGER PK
+        serie_id : SMALLINT FK
+        niveau_id : SMALLINT FK
+    }
+    class classes {
+        id : INTEGER PK
+        libelle : VARCHAR(100)
+        niveau_id : SMALLINT FK
+        serie_id : SMALLINT FK
+        annee_scolaire_id : SMALLINT FK
+    }
+    class matieres {
+        id : SMALLINT PK
+        code : VARCHAR(20) UQ
+        libelle : VARCHAR(100) UQ
+        description : TEXT nullable
+        created_at : TIMESTAMPTZ
+    }
+    class eleves {
+        id : INTEGER PK
+        utilisateur_id : INTEGER FK UQ
+        matricule : VARCHAR(20) UQ
+        date_naissance : DATE
+        created_at : TIMESTAMPTZ
+    }
+    class enseignants {
+        id : INTEGER PK
+        utilisateur_id : INTEGER FK UQ
+        matiere_id : SMALLINT FK
+        created_at : TIMESTAMPTZ
+    }
+    class inscriptions {
+        id : INTEGER PK
+        eleve_id : INTEGER FK
+        classe_id : INTEGER
+        annee_scolaire_id : SMALLINT
+        statut : VARCHAR(20)
+        date_inscription : DATE
+        created_at : TIMESTAMPTZ
+        updated_at : TIMESTAMPTZ
+    }
+    class affectations_enseignants {
+        id : INTEGER PK
+        enseignant_id : INTEGER
+        classe_id : INTEGER
+        matiere_id : SMALLINT
+        annee_scolaire_id : SMALLINT
+        created_at : TIMESTAMPTZ
+    }
+    class semestres {
+        id : SMALLINT PK
+        annee_scolaire_id : SMALLINT FK
+        code : VARCHAR(10)
+        libelle : VARCHAR(100)
+        date_debut : DATE
+        date_fin : DATE
+        created_at : TIMESTAMPTZ
+        updated_at : TIMESTAMPTZ
+    }
+    class evaluations {
+        id : INTEGER PK
+        affectation_id : INTEGER
+        semestre_id : SMALLINT
+        classe_id : INTEGER
+        annee_scolaire_id : SMALLINT
+        libelle : VARCHAR(150)
+        type : VARCHAR(20)
+        coefficient : NUMERIC(5,2)
+        date_evaluation : DATE
+        description : TEXT nullable
+        created_at : TIMESTAMPTZ
+        updated_at : TIMESTAMPTZ
+    }
+    class notes {
+        id : INTEGER PK
+        evaluation_id : INTEGER
+        eleve_id : INTEGER
+        classe_id : INTEGER
+        annee_scolaire_id : SMALLINT
+        valeur : NUMERIC(5,2)
+        commentaire : TEXT nullable
+        saisi_par : INTEGER FK
+        date_saisie : TIMESTAMPTZ
+        created_at : TIMESTAMPTZ
+        updated_at : TIMESTAMPTZ
+    }
+    class paiements {
+        id : INTEGER PK
+        inscription_id : INTEGER FK
+        transaction_ref : VARCHAR(100) UQ
+        provider_transaction_ref : VARCHAR(150) nullable
+        provider : VARCHAR(20)
+        statut : VARCHAR(20)
+        montant : NUMERIC(12,2)
+        devise : CHAR(3)
+        description : TEXT nullable
+        date_initiation : TIMESTAMPTZ
+        date_paiement : TIMESTAMPTZ nullable
+        date_remboursement : TIMESTAMPTZ nullable
+        created_at : TIMESTAMPTZ
+        updated_at : TIMESTAMPTZ
+    }
+    class paiement_webhook_events {
+        id : INTEGER PK
+        paiement_id : INTEGER
+        provider : VARCHAR(20)
+        event_ref : VARCHAR(150)
+        type_evenement : VARCHAR(100)
+        payload : JSONB
+        signature_verifiee : BOOLEAN
+        traite : BOOLEAN
+        date_reception : TIMESTAMPTZ
+        date_traitement : TIMESTAMPTZ nullable
+    }
+    class audit_logs {
+        id : INTEGER PK
+        utilisateur_id : INTEGER nullable FK
+        action : VARCHAR(100)
+        entite : VARCHAR(100)
+        entite_id : INTEGER nullable
+        anciennes_donnees : JSONB nullable
+        nouvelles_donnees : JSONB nullable
+        adresse_ip : INET nullable
+        user_agent : TEXT nullable
+        request_id : VARCHAR(100) nullable
+        created_at : TIMESTAMPTZ
+    }
+
+    roles "1" --> "0..*" utilisateurs : role_id
+    utilisateurs "1" --> "0..1" eleves : utilisateur_id
+    utilisateurs "1" --> "0..1" enseignants : utilisateur_id
+    matieres "1" --> "0..*" enseignants : matiere_id
+    series "1" --> "0..*" series_niveaux : serie_id
+    niveaux "1" --> "0..*" series_niveaux : niveau_id
+    niveaux "1" --> "0..*" classes : niveau_id
+    series "1" --> "0..*" classes : serie_id
+    annees_scolaires "1" --> "0..*" classes : annee_scolaire_id
+    series_niveaux "1" --> "0..*" classes : serie_id_niveau_id
+    eleves "1" --> "0..*" inscriptions : eleve_id
+    classes "1" --> "0..*" inscriptions : classe_id_annee_scolaire_id
+    annees_scolaires "1" --> "0..*" inscriptions : annee_scolaire_id
+    enseignants "1" --> "0..*" affectations_enseignants : enseignant_id_matiere_id
+    classes "1" --> "0..*" affectations_enseignants : classe_id_annee_scolaire_id
+    annees_scolaires "1" --> "0..*" affectations_enseignants : annee_scolaire_id
+    annees_scolaires "1" --> "0..*" semestres : annee_scolaire_id
+    affectations_enseignants "1" --> "0..*" evaluations : affectation_classe_annee
+    semestres "1" --> "0..*" evaluations : semestre_annee
+    evaluations "1" --> "0..*" notes : evaluation_classe_annee
+    inscriptions "1" --> "0..*" notes : eleve_classe_annee
+    utilisateurs "1" --> "0..*" notes : saisi_par
+    inscriptions "1" --> "0..*" paiements : inscription_id
+    paiements "1" --> "0..*" paiement_webhook_events : paiement_provider
+    utilisateurs "0..1" --> "0..*" audit_logs : utilisateur_id

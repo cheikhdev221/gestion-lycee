@@ -1,0 +1,32 @@
+erDiagram
+    ROLES ||--o{ UTILISATEURS : role_id
+    UTILISATEURS ||--o| ELEVES : utilisateur_id
+    UTILISATEURS ||--o| ENSEIGNANTS : utilisateur_id
+    MATIERES ||--o{ ENSEIGNANTS : matiere_id
+
+    SERIES ||--o{ SERIES_NIVEAUX : serie_id
+    NIVEAUX ||--o{ SERIES_NIVEAUX : niveau_id
+    NIVEAUX ||--o{ CLASSES : niveau_id
+    SERIES ||--o{ CLASSES : serie_id
+    SERIES_NIVEAUX ||--o{ CLASSES : serie_id_niveau_id
+    ANNEES_SCOLAIRES ||--o{ CLASSES : annee_scolaire_id
+
+    ELEVES ||--o{ INSCRIPTIONS : eleve_id
+    CLASSES ||--o{ INSCRIPTIONS : classe_id_annee_scolaire_id
+    ANNEES_SCOLAIRES ||--o{ INSCRIPTIONS : annee_scolaire_id
+
+    ENSEIGNANTS ||--o{ AFFECTATIONS_ENSEIGNANTS : enseignant_id_matiere_id
+    CLASSES ||--o{ AFFECTATIONS_ENSEIGNANTS : classe_id_annee_scolaire_id
+    ANNEES_SCOLAIRES ||--o{ AFFECTATIONS_ENSEIGNANTS : annee_scolaire_id
+
+    ANNEES_SCOLAIRES ||--o{ SEMESTRES : annee_scolaire_id
+    AFFECTATIONS_ENSEIGNANTS ||--o{ EVALUATIONS : affectation_classe_annee
+    SEMESTRES ||--o{ EVALUATIONS : semestre_annee
+
+    EVALUATIONS ||--o{ NOTES : evaluation_classe_annee
+    INSCRIPTIONS ||--o{ NOTES : eleve_classe_annee
+    UTILISATEURS ||--o{ NOTES : saisi_par
+
+    INSCRIPTIONS ||--o{ PAIEMENTS : inscription_id
+    PAIEMENTS ||--o{ PAIEMENT_WEBHOOK_EVENTS : paiement_provider
+    UTILISATEURS o|--o{ AUDIT_LOGS : utilisateur_id_nullable

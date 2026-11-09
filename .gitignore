@@ -3,3 +3,5 @@ vendor/
 .idea/
 .vscode/
 *.log
+/storage/student-photos/*
+!/storage/student-photos/.gitkeep
